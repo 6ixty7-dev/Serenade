@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <title>To Adithya 💖</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
     body {
       background: black;
@@ -12,6 +11,7 @@
       margin: 0;
       padding: 0;
       text-align: center;
+      overflow-x: hidden;
     }
 
     .video-container {
@@ -48,6 +48,72 @@
       color: #ccc;
       margin-bottom: 20px;
     }
+
+    #finalMessage {
+      display: none;
+      font-size: 1.4rem;
+      margin-top: 40px;
+      color: #ffda77;
+    }
+
+    #catGif {
+      display: none;
+      margin-top: 20px;
+      width: 200px;
+    }
+
+    /* Confetti */
+    .confetti-piece {
+      width: 10px;
+      height: 10px;
+      background-color: #f0f;
+      position: absolute;
+      animation: confettiFall 3s linear forwards;
+    }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    .heart {
+      position: fixed;
+      bottom: 0;
+      width: 20px;
+      height: 20px;
+      background: url('https://i.imgur.com/Qp4tJ2Z.png') no-repeat center/cover;
+      animation: floatUp 4s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    #replyBox {
+      display: none;
+      margin-top: 30px;
+    }
+
+    #replyInput {
+      padding: 10px;
+      width: 80%;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    #sendReply {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      background-color: #ff4081;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -67,7 +133,7 @@
       ></iframe>
     </div>
 
-    <!-- Lyrics that appear in sync -->
+    <!-- Lyrics -->
     <div id="lyrics">
       <div class="lyrics-line" data-time="4">O, lukk-chipp na javo ji,</div>
       <div class="lyrics-line" data-time="9">manney deed karavo ji</div>
@@ -80,27 +146,84 @@
       <div class="lyrics-line" data-time="45">Maney daaman mein baandhi khusi</div>
       <div class="lyrics-line" data-time="50">Rae jhoom, jhoom, jhoom jhoom baa jhoom</div>
     </div>
+
+    <div id="finalMessage">Text me back if you felt something 😌</div>
+    <img id="catGif" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="Dancing Cat" />
+
+    <div id="replyBox">
+      <input id="replyInput" type="text" placeholder="Write your reply here 💬" />
+      <br />
+      <button id="sendReply">Send to Tejas</button>
+    </div>
   </div>
 
   <script>
     const lyrics = document.querySelectorAll('.lyrics-line');
     const startTime = Date.now();
+    const finalMessage = document.getElementById("finalMessage");
+    const catGif = document.getElementById("catGif");
+    const replyBox = document.getElementById("replyBox");
 
     function showLyrics() {
       const elapsed = (Date.now() - startTime) / 1000;
 
-      lyrics.forEach((line) => {
+      lyrics.forEach((line, index) => {
         const lineTime = parseFloat(line.getAttribute('data-time'));
         if (elapsed >= lineTime && line.style.display !== 'block') {
           line.style.display = 'block';
+
+          if (index === lyrics.length - 1) {
+            finalMessage.style.display = 'block';
+            catGif.style.display = 'block';
+            replyBox.style.display = 'block';
+            triggerConfetti();
+          }
         }
       });
 
+      createHeart();
       requestAnimationFrame(showLyrics);
     }
 
     requestAnimationFrame(showLyrics);
+
+    // Confetti
+    function triggerConfetti() {
+      for (let i = 0; i < 100; i++) {
+        const piece = document.createElement("div");
+        piece.className = "confetti-piece";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.top = Math.random() * -20 + "vh";
+        piece.style.backgroundColor = getRandomColor();
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 3000);
+      }
+    }
+
+    function getRandomColor() {
+      const colors = ["#ff4081", "#ffd700", "#00e676", "#03a9f4"];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // Floating hearts
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }
+
+    // WhatsApp reply
+    document.getElementById("sendReply").onclick = function () {
+      const msg = document.getElementById("replyInput").value;
+      const phoneNumber = "918921066120"; // Your WhatsApp number (India format)
+      if (msg.trim() !== "") {
+        const encodedMsg = encodeURIComponent(msg);
+        const url = `https://wa.me/${phoneNumber}?text=${encodedMsg}`;
+        window.open(url, "_blank");
+      }
+    };
   </script>
 </body>
 </html>
-
