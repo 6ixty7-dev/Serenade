@@ -57,12 +57,13 @@
       ytVideo.src = "https://www.youtube.com/embed/sZvDWK8bjt8?start=175&autoplay=1";
     });
 
-    setTimeout(() => {
-      const popup = document.getElementById('sorryPopup');
-      popup.style.display = 'block';
-      popup.style.opacity = '1';
-      triggerHeartExplosion();
-    }, 200000); // 3 minutes 20 seconds
+  setTimeout(() => {
+  const popup = document.getElementById('sorryPopup');
+  popup.style.display = 'block';
+  popup.style.opacity = '1';
+  triggerHeartExplosion();
+}, 10000); // 10 seconds after page load
+
 
     function triggerHeartExplosion() {
       const container = document.getElementById('heartExplosion');
