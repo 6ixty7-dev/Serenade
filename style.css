@@ -2,12 +2,10 @@
   @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=DM+Serif+Text&display=swap');
 
   body {
-    background: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-    background-color: #fdf6f0;
-    color: #4b2e2e;
-    font-family: 'DM Serif Text', serif;
-    margin: 0;
-    padding: 0;
+   background: linear-gradient(to bottom, #ffdde1, #ee9ca7); /* soft pink */
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
     text-align: center;
     overflow-x: hidden;
   }
@@ -76,6 +74,12 @@
   to { opacity: 1; transform: translateY(0); }
 }
 .fold-container {
+  background-color: #fffaf0; /* light paper color */
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  max-width: 700px;
+  margin: 60px auto;
   transform-origin: top;
   transition: transform 1.5s ease-in-out;
 }
@@ -83,4 +87,5 @@
 .folded {
   transform: scaleY(0);
 }
+
 
