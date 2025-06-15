@@ -1,35 +1,75 @@
-body {
-    background: #fce4ec;
-    font-family: 'Segoe UI', sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
-    color: #880e4f;
-}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=DM+Serif+Text&display=swap');
 
-.container {
+  body {
+    background: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+    background-color: #fdf6f0;
+    color: #4b2e2e;
+    font-family: 'DM Serif Text', serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    overflow-x: hidden;
+  }
+
+  .container {
     max-width: 800px;
     margin: auto;
-}
+    padding: 40px 20px;
+    border: 1px solid #e4c1b0;
+    background-color: #fffdf9;
+    box-shadow: 0 0 20px rgba(195, 140, 120, 0.2);
+    border-radius: 10px;
+  }
 
-.message {
+  .title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    color: #b03060;
+    margin-bottom: 10px;
+  }
+
+  .message {
     font-size: 1.2rem;
+    color: #8b4b4b;
     margin-bottom: 20px;
-}
+  }
 
-.lyrics p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin: 10px 0;
-}
+  .video-container {
+    margin-top: 20px;
+  }
 
-.video-container {
+  .lyrics-line {
+    font-size: 1.4rem;
+    font-style: italic;
+    font-weight: 400;
     margin: 20px auto;
-} 
-#poetry {
-  animation: fadeIn 2s ease-in-out forwards;
-  opacity: 0;
-}
+    display: none;
+    animation: fadeIn 1s ease-in-out forwards;
+    color: #5a2a2a;
+  }
+
+  #poetry {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
+    color: #a12746;
+    white-space: pre-line;
+    margin-top: 40px;
+    opacity: 0;
+    animation: fadeInPoem 3s ease-in-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInPoem {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
