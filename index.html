@@ -1,324 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>To Adithya 💖</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cool Down My Love 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
   <style>
-    body {
-      background: black;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
+    * {
       margin: 0;
       padding: 0;
-      text-align: center;
-      overflow-x: hidden;
+      box-sizing: border-box;
     }
 
-    .video-container {
-      margin-top: 20px;
+    body {
+      font-family: 'Indie Flower', cursive;
+      background: linear-gradient(to bottom right, #ffd5ec, #ffe4b5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
     }
 
-    .lyrics-line {
-      font-size: 2rem;
-      font-weight: 600;
-      margin: 20px auto;
-      display: none;
-      animation: fadeIn 1s ease-in-out forwards;
+    #openBtn {
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 20px;
+      background: #ff6f91;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: 0.3s;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    #openBtn:hover {
+      background: #ff4b77;
     }
 
-    .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 20px;
-    }
-
-    .title {
-      font-size: 2.5rem;
-      color: #ff4081;
-      margin-top: 20px;
-    }
-
-    .message {
-      font-size: 1.2rem;
-      color: #ccc;
-      margin-bottom: 20px;
-    }
-
-    #finalMessage {
-      display: none;
-      font-size: 1.4rem;
-      margin-top: 40px;
-      color: #ffda77;
-    }
-
-    #catGif {
-      display: none;
-      margin-top: 20px;
-      width: 200px;
-    }
-
-    /* Confetti */
-    .confetti-piece {
-      width: 10px;
-      height: 10px;
-      background-color: #f0f;
-      position: absolute;
-      animation: confettiFall 3s linear forwards;
-    }
-
-    @keyframes confettiFall {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(100vh); opacity: 0; }
-    }
-
-    .heart {
-      position: fixed;
-      bottom: 0;
-      width: 20px;
-      height: 20px;
-      background: url('https://i.imgur.com/Qp4tJ2Z.png') no-repeat center/cover;
-      animation: floatUp 4s linear infinite;
-      pointer-events: none;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-100vh); opacity: 0; }
-    }
-
-    #replyBox {
+    #content {
       display: none;
       margin-top: 30px;
+      max-width: 90vw;
     }
 
-    #replyInput {
-      padding: 10px;
-      width: 80%;
-      border-radius: 10px;
-      border: none;
-      font-size: 1rem;
+    iframe {
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      margin-bottom: 30px;
     }
 
-    #sendReply {
-      margin-top: 10px;
-      padding: 10px 20px;
+    .lyric-board {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .lyric-card {
+      background: white;
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 2px 5px 15px rgba(0,0,0,0.1);
+      width: 200px;
       font-size: 1rem;
-      border: none;
-      background-color: #ff4081;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
+      color: #333;
+      text-align: center;
+      transform: scale(0);
+      animation: popIn 0.5s ease forwards;
+    }
+
+    @keyframes popIn {
+      to {
+        transform: scale(1);
+      }
     }
   </style>
 </head>
-  <script>
-  document.getElementById('foldButton').addEventListener('click', () => {
-    const container = document.getElementById('foldContainer');
-    container.classList.add('folded');
-
-    setTimeout(() => {
-      document.querySelector('#envelope').style.display = 'block';
-      setTimeout(() => {
-        document.querySelector('.envelope-flap').style.transform = 'rotateX(180deg)';
-      }, 100); // give it time to show before flap animates
-    }, 1600);
-  });
-      <script>
 <body>
- <div class="fold-container" id="foldContainer">
-  <div class="title">My Love Letter to Adithya 💌</div>
-<div class="message">If only you could hear how my heart sings for you…</div>
-    <button id="foldButton">Fold My Love Letter 💌</button>
-   <div class="envelope" id="envelope" style="display: none;">
-  <div class="envelope-back"></div>
-  <div class="envelope-flap"></div>
-</div>
+  <button id="openBtn">Click here, love... 💌</button>
 
-  </div>
+  <div id="content">
+    <iframe width="350" height="215" src="https://www.youtube.com/embed/sZvDWK8bjt8?start=175&autoplay=1" 
+      title="Song" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-
-    <div class="video-container">
-      <iframe
-        width="100%"
-        height="315"
-        src="https://www.youtube.com/embed/1gukvtH_a3I?start=360&autoplay=1"
-        title="Chaudhary"
-        frameborder="0"
-        allow="autoplay; encrypted-media"
-        allowfullscreen
-      ></iframe>
-    </div>
-
-<!-- Lyrics and Poetic Message Section -->
-<div id="lyrics">
-  <div class="lyrics-line" data-time="10">O, lukk-chipp na javo ji</div>
-  <div class="lyrics-line" data-time="12">manney deed karavo ji</div>
-  <div class="lyrics-line" data-time="15">Rae kyun tarsave ho,</div>
-  <div class="lyrics-line" data-time="17">manney sakal dikhavo ji</div>
-  <div class="lyrics-line" data-time="21">Thaari saraarat sabb jaanu main</div>
-  <div class="lyrics-line" data-time="23">chaudhari Mahaarey se levo na panga ji main kehan lagi</div>
-</div>
-
-<!-- Hidden Poetry Section -->
-<div id="poetry" style="display: none; font-size: 1.5rem; color: #ffd700; white-space: pre-line; margin-top: 40px;">
-  <p>May flowers grow in the saddest parts of you<br>
-  My love, you will never be unloved by me,<br>
-  you're too well tangled in my soul</p>
-</div>
-<button id="foldButton" style="
-  margin-top: 40px;
-  padding: 10px 20px;
-  font-family: 'DM Serif Text';
-  font-size: 1rem;
-  background-color: #b03060;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-">
-  Fold My Love Letter 💌
-</button>
-</body>
-    <script>
-  document.getElementById('foldButton').addEventListener('click', () => {
-    const container = document.getElementById('foldContainer');
-    container.classList.add('folded');
-
-    setTimeout(() => {
-      document.body.innerHTML = `
-        <div style="font-family: 'Great Vibes', cursive; font-size: 2rem; color: #b03060; text-align: center; margin-top: 30vh;">
-          Sent with love 💘<br><br>Forever yours,<br>Tejas
-        </div>
-      `;
-    }, 1600); // Wait until fold is done
-  });
-</script>
-  
-<script>
-  const lyrics = document.querySelectorAll('.lyrics-line');
-  const poetrySection = document.getElementById('poetry');
-
-  const startTime = Date.now();
-
-  function showLyrics() {
-    const elapsed = (Date.now() - startTime) / 1000 - 10; // adjust to match song at 6:00 start
-
-    lyrics.forEach((line, index) => {
-      const lineTime = parseFloat(line.getAttribute('data-time'));
-      if (elapsed >= lineTime && line.style.display !== 'block') {
-        line.style.display = 'block';
-      }
-    });
-
-    // Show poetry after last line (6:31 -> 31 seconds after start)
-    if (elapsed >= 31 && poetrySection.style.display === 'none') {
-      poetrySection.style.display = 'block';
-    }
-
-    requestAnimationFrame(showLyrics);
-  }
-
-  requestAnimationFrame(showLyrics);
-</script>
-
-
-
-    <div id="finalMessage">Text me back if you felt something 😌</div>
-    <img id="catGif" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="Dancing Cat" />
-
-    <div id="replyBox">
-      <input id="replyInput" type="text" placeholder="Write your reply here 💬" />
-      <br />
-      <button id="sendReply">Send to Tejas</button>
+    <div class="lyric-board">
+      <div class="lyric-card" style="animation-delay: 1s">Don't be mad, jaanu 😔</div>
+      <div class="lyric-card" style="animation-delay: 2s">Main hoon na...❤️</div>
+      <div class="lyric-card" style="animation-delay: 3s">Sun le ek baar, bas ek baar...</div>
+      <div class="lyric-card" style="animation-delay: 4s">Tujhse hi to roshan hoon main 🌟</div>
+      <div class="lyric-card" style="animation-delay: 5s">Tere bina toh adhoora hoon 💔</div>
+      <div class="lyric-card" style="animation-delay: 6s">Aaja na please, smile karle 😘</div>
+      <div class="lyric-card" style="animation-delay: 7s">Love you zyada, gussa kam 🧸</div>
     </div>
   </div>
 
   <script>
-    const lyrics = document.querySelectorAll('.lyrics-line');
-   const startTime = Date.now() + 10000; // delay lyrics by 10 seconds
+    const openBtn = document.getElementById('openBtn');
+    const content = document.getElementById('content');
 
-    const finalMessage = document.getElementById("finalMessage");
-    const catGif = document.getElementById("catGif");
-    const replyBox = document.getElementById("replyBox");
-
-    function showLyrics() {
-      const elapsed = (Date.now() - startTime) / 1000;
-
-      lyrics.forEach((line, index) => {
-        const lineTime = parseFloat(line.getAttribute('data-time'));
-        if (elapsed >= lineTime && line.style.display !== 'block') {
-          line.style.display = 'block';
-
-          if (index === lyrics.length - 1) {
-            finalMessage.style.display = 'block';
-            catGif.style.display = 'block';
-            replyBox.style.display = 'block';
-            triggerConfetti();
-          }
-        }
-      });
-
-     requestAnimationFrame(showLyrics);
-
-// Spawn 1 heart every 500ms instead of 60 FPS
-setInterval(() => {
-  function createHeart() {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = (Math.random() * 2 + 3) + "s"; // 3s to 5s
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 6000); // Cleanup
-}
-
-}, 500);
-
-    }
-
-    requestAnimationFrame(showLyrics);
-
-    // Confetti
-    function triggerConfetti() {
-      for (let i = 0; i < 100; i++) {
-        const piece = document.createElement("div");
-        piece.className = "confetti-piece";
-        piece.style.left = Math.random() * 100 + "vw";
-        piece.style.top = Math.random() * -20 + "vh";
-        piece.style.backgroundColor = getRandomColor();
-        document.body.appendChild(piece);
-        setTimeout(() => piece.remove(), 3000);
-      }
-    }
-
-    function getRandomColor() {
-      const colors = ["#ff4081", "#ffd700", "#00e676", "#03a9f4"];
-      return colors[Math.floor(Math.random() * colors.length)];
-    }
-
-    // Floating hearts
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.style.left = Math.random() * 100 + "vw";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 4000);
-    }
-
-    // WhatsApp reply
-    document.getElementById("sendReply").onclick = function () {
-      const msg = document.getElementById("replyInput").value;
-      const phoneNumber = "918921066120"; // Your WhatsApp number (India format)
-      if (msg.trim() !== "") {
-        const encodedMsg = encodeURIComponent(msg);
-        const url = `https://wa.me/${phoneNumber}?text=${encodedMsg}`;
-        window.open(url, "_blank");
-      }
-    };
+    openBtn.addEventListener('click', () => {
+      openBtn.style.display = 'none';
+      content.style.display = 'block';
+    });
   </script>
 </body>
 </html>
