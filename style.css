@@ -1,41 +1,47 @@
 body {
   margin: 0;
   padding: 0;
-  background: #fff0f5;
+  background-color: #000;
+  color: #fff;
   font-family: 'Indie Flower', cursive;
   overflow-x: hidden;
-  position: relative;
 }
 
 .container {
-  text-align: center;
+  max-width: 800px;
+  margin: auto;
   padding: 30px;
+  text-align: center;
+  position: relative;
+  z-index: 10;
 }
 
 .title {
-  font-size: 2.8rem;
-  color: #ff4081;
-  margin-top: 20px;
+  font-size: 2.5rem;
+  color: #ff69b4;
+  margin-bottom: 10px;
 }
 
 .note {
-  font-size: 1.4rem;
-  color: #444;
+  font-size: 1.2rem;
+  color: #fff;
   margin-bottom: 20px;
 }
 
-button#openBtn {
+button {
+  padding: 12px 30px;
   background: #ff69b4;
   color: white;
   border: none;
-  padding: 15px 25px;
-  font-size: 1.3rem;
-  border-radius: 30px;
+  border-radius: 40px;
+  font-size: 1.2rem;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background 0.3s ease;
+  z-index: 10;
+  position: relative;
 }
 
-button#openBtn:hover {
+button:hover {
   background: #ff1493;
 }
 
@@ -43,61 +49,49 @@ button#openBtn:hover {
   display: none;
 }
 
-.lyrics {
-  margin-top: 20px;
-  font-size: 1.4rem;
-  color: #333;
+.popup {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ff1493;
+  color: white;
+  padding: 30px;
+  border-radius: 10px;
+  font-size: 1.6rem;
+  text-align: center;
+  z-index: 999;
+  display: none;
+  transition: all 0.5s ease;
 }
 
-.emoji-background {
+#emoji-container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 1;
   pointer-events: none;
   overflow: hidden;
-  z-index: 0;
 }
 
 .floating-emoji {
   position: absolute;
-  animation: floatEmoji 10s linear forwards;
-  opacity: 0.5;
-  filter: blur(1px);
-  will-change: transform, opacity;
+  top: -5vh;
+  animation: floatDown linear;
+  opacity: 0.8;
 }
 
-@keyframes floatEmoji {
+@keyframes floatDown {
   0% {
-    transform: translateY(100vh) scale(0.6) rotate(0deg);
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.7;
+    transform: translateY(0);
+    opacity: 0.6;
   }
   100% {
-    transform: translateY(-10vh) scale(1.2) rotate(360deg);
+    transform: translateY(110vh);
     opacity: 0;
   }
-}
-
-.popup {
-  display: none;
-  position: fixed;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #ffe6f0;
-  color: #c2185b;
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  font-size: 2rem;
-  text-align: center;
-  z-index: 20;
-  opacity: 0;
-  transition: opacity 1s ease;
 }
 
 #heartExplosion {
@@ -107,25 +101,25 @@ button#openBtn:hover {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 15;
+  z-index: 999;
 }
 
 .exploding-heart {
   position: absolute;
   width: 20px;
   height: 20px;
-  background: url("https://em-content.zobj.net/thumbs/120/apple/354/sparkling-heart_1f496.png") no-repeat center;
-  background-size: cover;
-  animation: boom 2s ease-out forwards;
+  background: red;
+  border-radius: 50%;
+  animation: explode 2s ease-out forwards;
 }
 
-@keyframes boom {
-  from {
-    transform: scale(0.5) translateY(0);
+@keyframes explode {
+  0% {
+    transform: scale(1) translate(0, 0);
     opacity: 1;
   }
-  to {
-    transform: scale(1.5) translateY(-50px);
+  100% {
+    transform: scale(0.5) translate(calc(100vw * var(--x)), calc(100vh * var(--y)));
     opacity: 0;
   }
 }
