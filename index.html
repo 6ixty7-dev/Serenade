@@ -133,19 +133,51 @@
       ></iframe>
     </div>
 
-    <!-- Lyrics -->
-    <div id="lyrics">
-      <div class="lyrics-line" data-time="4">O, lukk-chipp na javo ji,</div>
-      <div class="lyrics-line" data-time="9">manney deed karavo ji</div>
-      <div class="lyrics-line" data-time="14">Rae kyun tarsave ho,</div>
-      <div class="lyrics-line" data-time="18">manney sakal dikhavo ji</div>
-      <div class="lyrics-line" data-time="24">Thaari saraarat sabb jaanu main</div>
-      <div class="lyrics-line" data-time="29">chaudhari Mahaarey se levo na panga ji main kehan lagi</div>
-      <div class="lyrics-line" data-time="36">Mahaarey hivdhey mein jaagi dhaunkani</div>
-      <div class="lyrics-line" data-time="41">Rae chandaa main thaari chandni</div>
-      <div class="lyrics-line" data-time="45">Maney daaman mein baandhi khusi</div>
-      <div class="lyrics-line" data-time="50">Rae jhoom, jhoom, jhoom jhoom baa jhoom</div>
-    </div>
+<!-- Lyrics and Poetic Message Section -->
+<div id="lyrics">
+  <div class="lyrics-line" data-time="10">O, lukk-chipp na javo ji</div>
+  <div class="lyrics-line" data-time="12">manney deed karavo ji</div>
+  <div class="lyrics-line" data-time="15">Rae kyun tarsave ho,</div>
+  <div class="lyrics-line" data-time="17">manney sakal dikhavo ji</div>
+  <div class="lyrics-line" data-time="21">Thaari saraarat sabb jaanu main</div>
+  <div class="lyrics-line" data-time="23">chaudhari Mahaarey se levo na panga ji main kehan lagi</div>
+</div>
+
+<!-- Hidden Poetry Section -->
+<div id="poetry" style="display: none; font-size: 1.5rem; color: #ffd700; white-space: pre-line; margin-top: 40px;">
+  <p>May flowers grow in the saddest parts of you<br>
+  My love, you will never be unloved by me,<br>
+  you're too well tangled in my soul</p>
+</div>
+
+<script>
+  const lyrics = document.querySelectorAll('.lyrics-line');
+  const poetrySection = document.getElementById('poetry');
+
+  const startTime = Date.now();
+
+  function showLyrics() {
+    const elapsed = (Date.now() - startTime) / 1000 - 10; // adjust to match song at 6:00 start
+
+    lyrics.forEach((line, index) => {
+      const lineTime = parseFloat(line.getAttribute('data-time'));
+      if (elapsed >= lineTime && line.style.display !== 'block') {
+        line.style.display = 'block';
+      }
+    });
+
+    // Show poetry after last line (6:31 -> 31 seconds after start)
+    if (elapsed >= 31 && poetrySection.style.display === 'none') {
+      poetrySection.style.display = 'block';
+    }
+
+    requestAnimationFrame(showLyrics);
+  }
+
+  requestAnimationFrame(showLyrics);
+</script>
+
+
 
     <div id="finalMessage">Text me back if you felt something 😌</div>
     <img id="catGif" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="Dancing Cat" />
