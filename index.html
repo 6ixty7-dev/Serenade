@@ -165,6 +165,21 @@
   Fold My Love Letter 💌
 </button>
 </body>
+    <script>
+  document.getElementById('foldButton').addEventListener('click', () => {
+    const container = document.getElementById('foldContainer');
+    container.classList.add('folded');
+
+    setTimeout(() => {
+      document.body.innerHTML = `
+        <div style="font-family: 'Great Vibes', cursive; font-size: 2rem; color: #b03060; text-align: center; margin-top: 30vh;">
+          Sent with love 💘<br><br>Forever yours,<br>Tejas
+        </div>
+      `;
+    }, 1600); // Wait until fold is done
+  });
+</script>
+  
 <script>
   const lyrics = document.querySelectorAll('.lyrics-line');
   const poetrySection = document.getElementById('poetry');
