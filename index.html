@@ -51,17 +51,30 @@
     });
 
     // Floating emoji spawner
-    const emojiContainer = document.getElementById('emoji-container');
-    const emojis = ["💌", "💖", "💘", "💕", "❤️"];
-    setInterval(() => {
-      const emoji = document.createElement('span');
-      emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-      emoji.className = 'floating-emoji';
-      emoji.style.left = Math.random() * 100 + 'vw';
-      emoji.style.fontSize = (Math.random() * 1.5 + 0.8) + 'rem';
-      emojiContainer.appendChild(emoji);
-      setTimeout(() => emoji.remove(), 5000);
-    }, 300);
+  const emojiContainer = document.getElementById('emoji-container');
+const emojis = ["💌", "💖", "💘", "💕", "❤️"];
+
+setInterval(() => {
+  const emoji = document.createElement('span');
+  emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  emoji.className = 'floating-emoji';
+
+  // Random size between 1.2rem to 2.5rem
+  const size = Math.random() * 1.3 + 1.2;
+  emoji.style.fontSize = `${size}rem`;
+
+  // Random position
+  const left = Math.random() * 100;
+  emoji.style.left = `${left}vw`;
+
+  // Random animation duration and delay
+  const duration = Math.random() * 5 + 7; // between 7 to 12 seconds
+  emoji.style.animationDuration = `${duration}s`;
+
+  emojiContainer.appendChild(emoji);
+  setTimeout(() => emoji.remove(), duration * 1000);
+}, 350);
+
 
     // Show Sorry popup + Heart explosion at 3:20
     setTimeout(() => {
