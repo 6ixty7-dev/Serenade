@@ -117,7 +117,8 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="fold-container" id="foldContainer">
+    <div class="container">
   <div class="title">My Love Letter to Adithya 💌</div>
 <div class="message">If only you could hear how my heart sings for you…</div>
 
@@ -150,7 +151,20 @@
   My love, you will never be unloved by me,<br>
   you're too well tangled in my soul</p>
 </div>
-
+<button id="foldButton" style="
+  margin-top: 40px;
+  padding: 10px 20px;
+  font-family: 'DM Serif Text';
+  font-size: 1rem;
+  background-color: #b03060;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+">
+  Fold My Love Letter 💌
+</button>
+</body>
 <script>
   const lyrics = document.querySelectorAll('.lyrics-line');
   const poetrySection = document.getElementById('poetry');
