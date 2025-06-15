@@ -1,99 +1,125 @@
 body {
   margin: 0;
   padding: 0;
-  background: #0d0d0d;
-  font-family: 'Segoe UI', sans-serif;
-  color: white;
+  background-color: #000;
+  color: #fff;
+  font-family: 'Indie Flower', cursive;
   overflow-x: hidden;
-  position: relative;
 }
 
-.envelope {
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 30px;
   text-align: center;
-  margin-top: 100px;
+  position: relative;
+  z-index: 10;
 }
 
-.open-btn {
-  font-size: 1.5rem;
-  padding: 15px 30px;
-  border: none;
-  background-color: #ff4d6d;
+.title {
+  font-size: 2.5rem;
+  color: #ff69b4;
+  margin-bottom: 10px;
+}
+
+.note {
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 12px 30px;
+  background: #ff69b4;
   color: white;
-  border-radius: 12px;
+  border: none;
+  border-radius: 40px;
+  font-size: 1.2rem;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
-  transition: background-color 0.3s ease;
+  transition: background 0.3s ease;
   z-index: 10;
   position: relative;
 }
 
-.open-btn:hover {
-  background-color: #e63956;
+button:hover {
+  background: #ff1493;
 }
 
-.heart-container {
+.hidden {
+  display: none;
+}
+
+.popup {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ff1493;
+  color: white;
+  padding: 30px;
+  border-radius: 10px;
+  font-size: 1.6rem;
+  text-align: center;
+  z-index: 999;
+  display: none;
+  transition: all 0.5s ease;
+}
+
+#emoji-container {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
   pointer-events: none;
-  z-index: 0;
   overflow: hidden;
 }
 
 .floating-emoji {
   position: absolute;
-  top: 100%;
-  animation: floatUp 5s linear forwards;
+  top: -5vh;
+  animation: floatDown linear;
+  opacity: 0.8;
 }
 
-@keyframes floatUp {
-  from {
+@keyframes floatDown {
+  0% {
     transform: translateY(0);
-    opacity: 1;
+    opacity: 0.6;
   }
-  to {
-    transform: translateY(-120vh);
+  100% {
+    transform: translateY(110vh);
     opacity: 0;
   }
 }
 
-.floating-heart {
+#heartExplosion {
   position: fixed;
-  bottom: 60px;
-  right: 30px;
-  background: #ff4d6d;
-  color: white;
-  font-size: 2rem;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.exploding-heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: red;
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 100;
-  box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+  animation: explode 2s ease-out forwards;
 }
 
-.love-note {
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  background-color: #fff0f5;
-  color: #333;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  max-width: 300px;
-  z-index: 200;
-  display: flex;
-  flex-direction: column;
-  animation: fadeIn 1s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes explode {
+  0% {
+    transform: scale(1) translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.5) translate(calc(100vw * var(--x)), calc(100vh * var(--y)));
+    opacity: 0;
+  }
 }
