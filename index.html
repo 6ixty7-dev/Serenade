@@ -62,10 +62,10 @@
       ytVideo.src = "https://www.youtube.com/embed/sZvDWK8bjt8?start=175&autoplay=1";
     });
 
-  setTimeout(() => {
+// Show popup after 10 seconds
+setTimeout(() => {
   const popup = document.getElementById('sorryPopup');
-  popup.style.display = 'block';
-  popup.style.opacity = '1';
+  popup.style.display = 'flex';
   triggerHeartExplosion();
 }, 10000); // 10 seconds after page load
 
