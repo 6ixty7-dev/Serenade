@@ -186,7 +186,15 @@
 
 // Spawn 1 heart every 500ms instead of 60 FPS
 setInterval(() => {
-  createHeart();
+  function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 2 + 3) + "s"; // 3s to 5s
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000); // Cleanup
+}
+
 }, 500);
 
     }
