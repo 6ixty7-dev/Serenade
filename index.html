@@ -2,92 +2,71 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>You’re My Ellam Ellam Bbg 💖</title>
+  <title>You're My Ellam Ellam Bbg 💖</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div id="emoji-container"></div>
 
-  <!-- Floating emojis background -->
-  <div class="emoji-background" id="emoji-container"></div>
-
-  <!-- Main Content -->
-  <div id="content" class="container">
-    <h1 class="title">You’re My Ellam Ellam Bbg 💖</h1>
-    <p class="note">Sundariii… I don’t know how to sing or write poetry, but I guess this works too 😅</p>
+  <div class="container">
+    <h1 class="title">You're My Ellam Ellam Bbg 💖</h1>
+    <p class="note">Sundariii... I don’t know how to sing or write poetry, but I guess this works too 😅</p>
 
     <button id="openBtn">Click here chellam 💌</button>
 
     <div id="videoSection" class="hidden">
-      <iframe 
-        width="100%" 
-        height="315" 
-        src="https://www.youtube.com/embed/sZvDWK8bjt8?start=175&autoplay=1" 
-        title="ente ellam ellam ale" 
-        frameborder="0" 
-        allow="autoplay; encrypted-media" 
+      <iframe
+        id="ytVideo"
+        width="100%"
+        height="315"
+        src=""
+        title="ente ellam ellam ale"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
         allowfullscreen>
       </iframe>
-
-      
-      
     </div>
   </div>
 
-  <!-- Sorry Pop-up -->
   <div id="sorryPopup" class="popup">
     <p>Sorry 😔<br>I love you ❤️</p>
   </div>
 
-  <!-- Heart Explosion Container -->
   <div id="heartExplosion"></div>
 
-  <!-- JS -->
   <script>
-    // Button to show video
+    const emojiContainer = document.getElementById('emoji-container');
+    const emojis = ["💌", "💖", "💘", "💕", "❤️"];
+    setInterval(() => {
+      const emoji = document.createElement('span');
+      emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      emoji.className = 'floating-emoji';
+      emoji.style.left = Math.random() * 100 + 'vw';
+      emoji.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';
+      emoji.style.animationDuration = (Math.random() * 5 + 7) + 's';
+      emojiContainer.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 12000);
+    }, 350);
+
     document.getElementById("openBtn").addEventListener("click", () => {
       document.getElementById("videoSection").classList.remove("hidden");
       document.getElementById("openBtn").style.display = "none";
+
+      const ytVideo = document.getElementById("ytVideo");
+      ytVideo.src = "https://www.youtube.com/embed/sZvDWK8bjt8?start=175&autoplay=1";
     });
 
-    // Floating emoji spawner
-  const emojiContainer = document.getElementById('emoji-container');
-const emojis = ["💌", "💖", "💘", "💕", "❤️"];
-
-setInterval(() => {
-  const emoji = document.createElement('span');
-  emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-  emoji.className = 'floating-emoji';
-
-  // Random size between 1.2rem to 2.5rem
-  const size = Math.random() * 1.3 + 1.2;
-  emoji.style.fontSize = `${size}rem`;
-
-  // Random position
-  const left = Math.random() * 100;
-  emoji.style.left = `${left}vw`;
-
-  // Random animation duration and delay
-  const duration = Math.random() * 5 + 7; // between 7 to 12 seconds
-  emoji.style.animationDuration = `${duration}s`;
-
-  emojiContainer.appendChild(emoji);
-  setTimeout(() => emoji.remove(), duration * 1000);
-}, 350);
-
-
-    // Show Sorry popup + Heart explosion at 3:20
     setTimeout(() => {
       const popup = document.getElementById('sorryPopup');
       popup.style.display = 'block';
       popup.style.opacity = '1';
       triggerHeartExplosion();
-    }, 200000); // 200 sec = 3 min 20 sec
+    }, 200000); // 3 minutes 20 seconds
 
-    // Heart Explosion function
     function triggerHeartExplosion() {
       const container = document.getElementById('heartExplosion');
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 60; i++) {
         const heart = document.createElement('div');
         heart.className = 'exploding-heart';
         heart.style.left = Math.random() * 100 + 'vw';
@@ -97,6 +76,5 @@ setInterval(() => {
       }
     }
   </script>
-
 </body>
 </html>
