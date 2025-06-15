@@ -182,8 +182,13 @@
         }
       });
 
-      createHeart();
-      requestAnimationFrame(showLyrics);
+     requestAnimationFrame(showLyrics);
+
+// Spawn 1 heart every 500ms instead of 60 FPS
+setInterval(() => {
+  createHeart();
+}, 500);
+
     }
 
     requestAnimationFrame(showLyrics);
