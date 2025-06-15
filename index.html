@@ -116,6 +116,19 @@
     }
   </style>
 </head>
+  <script>
+  document.getElementById('foldButton').addEventListener('click', () => {
+    const container = document.getElementById('foldContainer');
+    container.classList.add('folded');
+
+    setTimeout(() => {
+      document.querySelector('#envelope').style.display = 'block';
+      setTimeout(() => {
+        document.querySelector('.envelope-flap').style.transform = 'rotateX(180deg)';
+      }, 100); // give it time to show before flap animates
+    }, 1600);
+  });
+      <script>
 <body>
  <div class="fold-container" id="foldContainer">
   <div class="title">My Love Letter to Adithya 💌</div>
