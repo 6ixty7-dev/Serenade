@@ -34,18 +34,20 @@
       content.style.display = "block";
     });
 
-    // Floating hearts
-    const floatingHearts = document.querySelector('.floating-hearts');
+   <script>
+  const floatingHearts = document.querySelector('.floating-hearts');
 
-    setInterval(() => {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.innerText = '💖';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = 3 + Math.random() * 2 + 's';
-      floatingHearts.appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
-    }, 500);
-  </script>
+  setInterval(() => {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerText = '❤️';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = 4 + Math.random() * 3 + 's';
+    heart.style.fontSize = Math.random() * 10 + 10 + 'px'; // smaller heart sizes
+    floatingHearts.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+  }, 400);
+</script>
+
 </body>
 </html>
