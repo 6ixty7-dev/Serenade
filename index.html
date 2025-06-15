@@ -8,12 +8,18 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="floating-hearts"></div>
+
   <div class="envelope">
     <button id="openBtn">Click here, chellam 💌</button>
   </div>
 
   <div id="content">
     <div class="letter">
+      <h1 class="title">You're my ellam ellam, bbg &lt;3</h1>
+
+      <p class="apology">Sundariii... 😔<br>I don't know how to sing or write poetry...<br>but I guess this works too 🤞</p>
+
       <iframe width="100%" height="315" src="https://www.youtube.com/embed/sZvDWK8bjt8?start=175&autoplay=1"
         title="Ente Ellam Ellam Alle" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
@@ -27,6 +33,19 @@
       openBtn.style.display = "none";
       content.style.display = "block";
     });
+
+    // Floating hearts
+    const floatingHearts = document.querySelector('.floating-hearts');
+
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerText = '💖';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 3 + Math.random() * 2 + 's';
+      floatingHearts.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }, 500);
   </script>
 </body>
 </html>
