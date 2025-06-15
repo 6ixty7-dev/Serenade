@@ -5,6 +5,111 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>You're My Ellam Ellam BBG &lt;3</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: #fffafc;
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-top: 1rem;
+      color: #ff69b4;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #555;
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .envelope {
+      position: relative;
+      margin: 0 auto;
+      width: 200px;
+      height: 100px;
+      background: #ffb6c1;
+      border-radius: 0 0 20px 20px;
+      transition: transform 0.6s ease;
+    }
+
+    .envelope.opened {
+      transform: rotateX(180deg);
+    }
+
+    .open-btn {
+      display: block;
+      margin: 2rem auto;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .video-container {
+      display: none;
+      width: 80%;
+      max-width: 600px;
+      margin: 2rem auto;
+    }
+
+    .love-note {
+      display: none;
+      position: fixed;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff0f5;
+      padding: 2rem;
+      border: 2px solid #ff69b4;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      text-align: center;
+      z-index: 999;
+      animation: popIn 0.7s ease-out forwards;
+    }
+
+    .love-note strong {
+      font-size: 1.5rem;
+      color: #ff1493;
+    }
+
+    @keyframes popIn {
+      0% { transform: translateX(-50%) scale(0); opacity: 0; }
+      100% { transform: translateX(-50%) scale(1); opacity: 1; }
+    }
+
+    .floating-emoji {
+      position: fixed;
+      top: 100%;
+      animation: floatUp 6s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      0% { top: 100%; opacity: 0.5; }
+      100% { top: -10%; opacity: 0; }
+    }
+
+    .heart-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+  </style>
 </head>
 <body>
   <h1 class="title">You're My Ellam Ellam BBG &lt;3</h1>
@@ -17,7 +122,6 @@
     <iframe width="100%" height="315" src="https://www.youtube.com/embed/sZvDWK8bjt8?start=175&autoplay=1" title="Ente Ellam Ellam" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
 
-  <div class="floating-heart" id="popupTrigger" style="display: none;">❤️</div>
   <div class="love-note" id="loveNote">
     <strong>Sorry, I love you 🥺❤️</strong>
     <p>Ummaa = Kiss 😘</p>
@@ -29,7 +133,6 @@
     const openBtn = document.getElementById('openBtn');
     const videoContainer = document.getElementById('videoContainer');
     const envelope = document.getElementById('envelope');
-    const popupTrigger = document.getElementById('popupTrigger');
     const loveNote = document.getElementById('loveNote');
     const heartContainer = document.getElementById('heartContainer');
 
@@ -39,12 +142,9 @@
       openBtn.style.display = 'none';
     });
 
-    popupTrigger.addEventListener('click', () => {
-      loveNote.style.display = 'block';
-    });
-
     setTimeout(() => {
-      popupTrigger.style.display = 'flex';
+      loveNote.style.display = 'block';
+      launchConfetti();
     }, 10000);
 
     function createFloatingEmoji() {
@@ -57,9 +157,26 @@
 
       setTimeout(() => {
         heartContainer.removeChild(emoji);
-      }, 5000);
+      }, 6000);
     }
     setInterval(createFloatingEmoji, 400);
+
+    function launchConfetti() {
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.textContent = '🎉';
+        confetti.style.position = 'fixed';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = '-10vh';
+        confetti.style.fontSize = Math.random() * 20 + 10 + 'px';
+        confetti.style.animation = 'floatUp 4s linear';
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+          document.body.removeChild(confetti);
+        }, 4000);
+      }
+    }
   </script>
 </body>
 </html>
