@@ -44,3 +44,9 @@ body {
   padding: 20px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
+.apology {
+  font-size: 1.3rem;
+  color: #d6336c;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
