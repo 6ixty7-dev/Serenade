@@ -2,69 +2,88 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>You're My Ellam Ellam 💖</title>
-  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+  <title>You’re My Ellam Ellam Bbg 💖</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Floating emoji layer (behind everything) -->
-  <div class="emoji-layer" aria-hidden="true"></div>
 
-  <!-- Envelope intro -->
-  <div class="envelope">
-    <button id="openBtn">Click here, chellam 💌</button>
-  </div>
+  <!-- Floating emojis background -->
+  <div class="emoji-background" id="emoji-container"></div>
 
-  <!-- Hidden love letter -->
-  <div id="content" style="display: none;">
-    <div class="letter">
-      <h1 class="title">You're my ellam ellam, bbg &lt;3</h1>
+  <!-- Main Content -->
+  <div id="content" class="container">
+    <h1 class="title">You’re My Ellam Ellam Bbg 💖</h1>
+    <p class="note">Sundariii… I don’t know how to sing or write poetry, but I guess this works too 😅</p>
 
-      <p class="apology">
-        Sundariii... 😔<br>
-        I don't know how to sing or write poetry...<br>
-        but I guess this works too 🤞
-      </p>
+    <button id="openBtn">Click here chellam 💌</button>
 
-      <!-- Auto-playing YouTube Video -->
-      <div class="video-container">
-        <iframe
-          width="100%"
-          height="315"
-          src="https://www.youtube.com/embed/sZvDWK8bjt8?start=175&autoplay=1&mute=0&controls=1&rel=0&showinfo=0"
-          title="Ente Ellam Ellam Alle"
-          frameborder="0"
-          allow="autoplay; encrypted-media"
-          allowfullscreen>
-        </iframe>
-      </div>
+    <div id="videoSection" class="hidden">
+      <iframe 
+        width="100%" 
+        height="315" 
+        src="https://www.youtube.com/embed/sZvDWK8bjt8?start=175&autoplay=1" 
+        title="ente ellam ellam ale" 
+        frameborder="0" 
+        allow="autoplay; encrypted-media" 
+        allowfullscreen>
+      </iframe>
+
+      
+      
     </div>
   </div>
 
-  <script>
-    const openBtn = document.getElementById("openBtn");
-    const content = document.getElementById("content");
+  <!-- Sorry Pop-up -->
+  <div id="sorryPopup" class="popup">
+    <p>Sorry 😔<br>I love you ❤️</p>
+  </div>
 
-    openBtn.addEventListener("click", () => {
-      openBtn.style.display = "none";
-      content.style.display = "block";
+  <!-- Heart Explosion Container -->
+  <div id="heartExplosion"></div>
+
+  <!-- JS -->
+  <script>
+    // Button to show video
+    document.getElementById("openBtn").addEventListener("click", () => {
+      document.getElementById("videoSection").classList.remove("hidden");
+      document.getElementById("openBtn").style.display = "none";
     });
 
-    // Floating emoji generator
-    const emojiLayer = document.querySelector('.emoji-layer');
-    const emojis = ['❤️', '💌', '💕', '💖', '💘'];
-
+    // Floating emoji spawner
+    const emojiContainer = document.getElementById('emoji-container');
+    const emojis = ["💌", "💖", "💘", "💕", "❤️"];
     setInterval(() => {
-      const emoji = document.createElement('div');
-      emoji.classList.add('emoji');
-      emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      const emoji = document.createElement('span');
+      emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      emoji.className = 'floating-emoji';
       emoji.style.left = Math.random() * 100 + 'vw';
-      emoji.style.fontSize = (10 + Math.random() * 20) + 'px';
-      emoji.style.animationDuration = (4 + Math.random() * 4) + 's';
-      emojiLayer.appendChild(emoji);
-      setTimeout(() => emoji.remove(), 8000);
+      emoji.style.fontSize = (Math.random() * 1.5 + 0.8) + 'rem';
+      emojiContainer.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 5000);
     }, 300);
+
+    // Show Sorry popup + Heart explosion at 3:20
+    setTimeout(() => {
+      const popup = document.getElementById('sorryPopup');
+      popup.style.display = 'block';
+      popup.style.opacity = '1';
+      triggerHeartExplosion();
+    }, 200000); // 200 sec = 3 min 20 sec
+
+    // Heart Explosion function
+    function triggerHeartExplosion() {
+      const container = document.getElementById('heartExplosion');
+      for (let i = 0; i < 100; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'exploding-heart';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.top = Math.random() * 100 + 'vh';
+        container.appendChild(heart);
+        setTimeout(() => heart.remove(), 2000);
+      }
+    }
   </script>
+
 </body>
 </html>
