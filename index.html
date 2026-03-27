@@ -2,798 +2,619 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>TailorBee — Builder Filter</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TailorBee — Builder Application</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  :root {
+    --cream: #F0EBE0;
+    --ink: #111111;
+    --gold: #C49A28;
+    --yellow: #FFC107;
+    --mid: #3A3A3A;
+    --light: #888;
+    --border: rgba(0,0,0,0.12);
+    --error: #C0392B;
   }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
 
   body {
-    background: #FFFFFF;
-    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
-    color: #000000;
-    line-height: 1.4;
-    scroll-behavior: smooth;
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
   }
 
-  /* Typography & Baseline */
-  h1, h2, h3, .strong-call {
-    font-weight: 600;
-    letter-spacing: -0.02em;
-  }
-
-  /* Modern subtle background texture */
-  .bg-noise {
+  body::before {
+    content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: 0;
-    opacity: 0.2;
-    background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
-    background-size: 24px 24px;
+    opacity: 0.5;
   }
 
-  .container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 32px;
+  /* ── HEADER ── */
+  .site-header {
     position: relative;
-    z-index: 2;
-  }
-
-  /* Header */
-  .brand-bar {
+    z-index: 1;
+    padding: 28px 40px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    padding: 28px 0 20px;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
-    margin-bottom: 48px;
-    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
   }
 
-  .logo-area {
+  .logo { display: flex; align-items: center; gap: 8px; }
+  .logo-text { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; }
+  .logo-text span { color: var(--gold); }
+
+  .logo-bee {
+    font-size: 20px;
+    display: inline-block;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  .header-tag {
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--light);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    padding: 80px 40px 60px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
   }
 
-  .logo-icon {
-    font-size: 32px;
-    transition: transform 0.2s ease;
+  .hero-eyebrow::after {
+    content: '';
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
   }
 
-  .logo-text {
-    font-weight: 700;
-    font-size: 20px;
-    letter-spacing: -0.3px;
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 11vw, 130px);
+    line-height: 0.92;
+    letter-spacing: 0.01em;
+    color: var(--ink);
   }
 
-  .logo-text span {
-    color: #FFC107;
-    font-weight: 800;
+  .hero h1 .script {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(48px, 8.5vw, 108px);
+    color: var(--gold);
+    display: block;
+    line-height: 1.1;
+    margin-top: 4px;
   }
 
-  .filter-badge {
-    background: #F5F5F5;
-    padding: 6px 14px;
-    border-radius: 40px;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    color: #000000;
-    border: 1px solid #EAEAEA;
-  }
-
-  /* Hero section — sharp filter mindset */
-  .hero-section {
-    margin-bottom: 56px;
-  }
-
-  .eyebrow {
-    font-size: 13px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: #FFC107;
-    margin-bottom: 16px;
-    display: inline-block;
-    border-left: 3px solid #FFC107;
-    padding-left: 12px;
-  }
-
-  h1 {
-    font-size: clamp(42px, 8vw, 72px);
-    line-height: 1.05;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    margin-bottom: 20px;
-    color: #000000;
-  }
-
-  .filter-sub {
-    font-size: 18px;
-    color: #3A3A3A;
-    max-width: 560px;
-    border-left: 2px solid #FFC107;
+  .hero-sub {
+    margin-top: 36px;
+    max-width: 500px;
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 1.8;
+    border-left: 3px solid var(--yellow);
     padding-left: 20px;
-    margin-top: 12px;
-    font-weight: 400;
-    line-height: 1.5;
   }
 
-  .filter-sub strong {
-    color: #000000;
-    font-weight: 600;
+  .hero-sub strong { font-weight: 600; color: var(--ink); }
+
+  /* ── FORM WRAP ── */
+  .form-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 40px 100px;
   }
 
-  .divider-marker {
-    width: 60px;
-    height: 2px;
-    background: #FFC107;
-    margin: 28px 0 32px 0;
+  /* ── SECTIONS ── */
+  .form-section {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
   }
 
-  /* Form card-like aesthetic */
-  .form-card {
-    background: #FFFFFF;
-    border-radius: 0px;
-    margin-top: 16px;
+  .form-section.visible { opacity: 1; transform: translateY(0); }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+    padding-top: 60px;
   }
 
-  .field-group {
-    margin-bottom: 32px;
-  }
-
-  .field-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
-    margin-bottom: 32px;
-  }
-
-  @media (max-width: 640px) {
-    .container {
-      padding: 0 24px;
-    }
-    .field-row {
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-  }
-
-  label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    margin-bottom: 12px;
-    color: #111111;
-  }
-
-  .required-star {
-    color: #FFC107;
-    margin-left: 4px;
-    font-weight: 700;
-  }
-
-  .hint-text {
-    display: block;
-    font-size: 12px;
-    font-weight: 400;
-    color: #6B6B6B;
-    margin-top: -8px;
-    margin-bottom: 12px;
-    text-transform: none;
-    letter-spacing: normal;
-  }
-
-  input, select, textarea {
-    width: 100%;
-    padding: 16px 14px;
-    font-size: 16px;
-    font-family: 'Inter', system-ui, monospace;
-    background: #FFFFFF;
-    border: 1px solid #E6E6E6;
-    border-radius: 0px;
-    transition: all 0.2s ease;
-    outline: none;
-    color: #000000;
-  }
-
-  input:focus, select:focus, textarea:focus {
-    border-color: #FFC107;
-    box-shadow: 0 0 0 3px rgba(255,193,7,0.1);
-  }
-
-  input.error, select.error, textarea.error {
-    border-color: #D32F2F;
-    background-color: #FFF8F8;
-  }
-
-  .error-msg {
-    display: none;
-    font-size: 12px;
-    color: #D32F2F;
-    margin-top: 6px;
-    font-weight: 500;
-    letter-spacing: -0.2px;
-  }
-
-  .error-msg.show {
-    display: block;
-  }
-
-  /* section separation */
-  .section-divider {
-    margin: 48px 0 32px;
-    border-top: 1px solid #EFEFEF;
+  .section-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 1;
+    color: rgba(0,0,0,0.07);
+    flex-shrink: 0;
   }
 
   .section-title {
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: -0.4px;
-    margin-bottom: 32px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .section-title .num {
-    font-size: 48px;
-    font-weight: 800;
-    color: rgba(0,0,0,0.05);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
+    letter-spacing: 0.05em;
+    color: var(--ink);
     line-height: 1;
   }
 
-  /* subtle animation */
-  @keyframes fadeSlideUp {
-    0% { opacity: 0; transform: translateY(14px); }
-    100% { opacity: 1; transform: translateY(0); }
+  .section-rule { flex: 1; height: 1px; background: var(--border); }
+
+  /* ── FIELDS ── */
+  .field { margin-bottom: 32px; }
+  .field:last-child { margin-bottom: 0; }
+
+  .field-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 10px;
   }
 
-  .fade-item {
+  .field-label .req { color: var(--gold); margin-left: 3px; }
+
+  .field-hint {
+    display: block;
+    font-size: 12px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--light);
+    margin-top: -6px;
+    margin-bottom: 10px;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="url"],
+  textarea,
+  select {
+    width: 100%;
+    background: rgba(0,0,0,0.025);
+    border: 1px solid transparent;
+    border-bottom: 2px solid var(--ink);
+    padding: 15px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--ink);
+    outline: none;
+    transition: all 0.2s ease;
+    appearance: none;
+    border-radius: 0;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    background: rgba(255,193,7,0.05);
+    border-color: rgba(255,193,7,0.3);
+    border-bottom-color: var(--gold);
+  }
+
+  input.err, textarea.err, select.err {
+    border-bottom-color: var(--error);
+    background: rgba(192,57,43,0.03);
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: rgba(0,0,0,0.18);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  textarea { resize: vertical; min-height: 120px; line-height: 1.7; }
+
+  select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23111' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+  }
+
+  .err-msg {
+    display: none;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--error);
+    margin-top: 6px;
+  }
+
+  .err-msg.show { display: block; }
+
+  /* ── TWO COL ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  /* ── DIVIDER ── */
+  hr.div { border: none; border-top: 1px solid var(--border); }
+
+  /* ── SUBMIT ── */
+  .submit-block {
+    padding-top: 60px;
     opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.5s ease;
-  }
-  .fade-item.visible {
-    opacity: 1;
-    transform: translateY(0);
+    transform: translateY(28px);
+    transition: opacity 0.55s ease 0.2s, transform 0.55s ease 0.2s;
   }
 
-  /* Submit area */
-  .submit-area {
-    margin: 56px 0 64px;
-    padding-top: 24px;
-    border-top: 1px solid #EFEFEF;
-  }
+  .submit-block.visible { opacity: 1; transform: translateY(0); }
 
   .submit-note {
     font-size: 13px;
-    font-style: normal;
-    font-weight: 500;
-    color: #2C2C2C;
-    background: #FCF9F0;
-    padding: 14px 20px;
-    border-left: 4px solid #FFC107;
-    margin-bottom: 28px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--light);
+    margin-bottom: 24px;
+    line-height: 1.7;
+    max-width: 480px;
   }
 
-  button {
+  .submit-btn {
     width: 100%;
-    background: #000000;
-    color: #FFFFFF;
+    background: var(--ink);
+    color: var(--cream);
     border: none;
-    padding: 20px 24px;
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
+    padding: 22px 32px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 0.1em;
     cursor: pointer;
     transition: all 0.25s ease;
-    font-family: inherit;
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    gap: 14px;
     position: relative;
     overflow: hidden;
-    border-radius: 0px;
   }
 
-  button::after {
+  .submit-btn::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #FFC107;
+    inset: 0;
+    background: var(--gold);
     transform: translateX(-100%);
-    transition: transform 0.3s cubic-bezier(0.2, 1, 0.3, 1);
+    transition: transform 0.3s ease;
     z-index: 0;
   }
 
-  button:hover::after {
-    transform: translateX(0);
-  }
+  .submit-btn:hover::after { transform: translateX(0); }
+  .submit-btn:hover { color: var(--ink); }
+  .submit-btn > * { position: relative; z-index: 1; }
 
-  button span {
-    position: relative;
-    z-index: 2;
-  }
+  .submit-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .submit-btn:disabled::after { display: none; }
 
-  button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  button:disabled::after {
+  /* ── SUCCESS ── */
+  .success-screen {
     display: none;
-  }
-
-  /* success overlay */
-  .success-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #FFFFFF;
-    z-index: 1000;
-    display: flex;
+    inset: 0;
+    background: var(--cream);
+    z-index: 200;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.4s ease, visibility 0s linear 0.4s;
-    backdrop-filter: blur(0px);
-  }
-  .success-overlay.active {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 0.4s ease, visibility 0s;
-  }
-  .success-card {
-    max-width: 480px;
     text-align: center;
-    padding: 48px 32px;
-    background: #FFFFFF;
-    border-top: 6px solid #FFC107;
-    box-shadow: 0 25px 40px -12px rgba(0,0,0,0.08);
-  }
-  .success-icon {
-    font-size: 68px;
-    margin-bottom: 28px;
-    display: inline-block;
-    animation: gentleFloat 2s ease-in-out infinite;
-  }
-  @keyframes gentleFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-  }
-  .success-card h2 {
-    font-size: 36px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 18px;
-  }
-  .success-card p {
-    font-size: 18px;
-    color: #3A3A3A;
-    font-weight: 400;
-    line-height: 1.5;
-  }
-  .success-card small {
-    display: block;
-    margin-top: 28px;
-    font-size: 12px;
-    color: #999;
+    padding: 40px;
   }
 
-  footer {
-    border-top: 1px solid #F0F0F0;
-    padding: 32px 0 40px;
-    margin-top: 24px;
-    font-size: 12px;
-    color: #7A7A7A;
-    text-align: center;
-    letter-spacing: 0.2px;
+  .success-screen.show {
+    display: flex;
+    animation: fadeIn 0.5s ease;
   }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .s-bee { font-size: 72px; margin-bottom: 32px; animation: float 2s ease-in-out infinite; }
+
+  .success-screen h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 9vw, 80px);
+    line-height: 0.95;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+
+  .success-screen h2 .script {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+    font-size: clamp(32px, 7vw, 64px);
+  }
+
+  .success-screen p {
+    font-size: 15px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--mid);
+    max-width: 380px;
+    line-height: 1.75;
+    margin-top: 8px;
+  }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    position: relative;
+    z-index: 1;
+    padding: 24px 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .site-footer p { font-size: 11px; font-weight: 300; color: var(--light); letter-spacing: 0.06em; }
+  .site-footer span { font-weight: 600; color: var(--ink); }
 
   @media (max-width: 600px) {
-    .brand-bar {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
-    }
-    .filter-badge {
-      font-size: 10px;
-    }
-    .section-title {
-      font-size: 24px;
-    }
-    button {
-      padding: 18px;
-      font-size: 16px;
-    }
+    .site-header, .site-footer { padding: 20px; }
+    .hero { padding: 48px 20px 40px; }
+    .form-wrap { padding: 0 20px 80px; }
+    .two-col { grid-template-columns: 1fr; gap: 0; }
+    .header-tag { display: none; }
   }
 </style>
 </head>
 <body>
-<div class="bg-noise"></div>
-<div class="container">
-  <div class="brand-bar">
-    <div class="logo-area">
-      <span class="logo-icon">🐝</span>
-      <span class="logo-text">Tailor<span>Bee</span></span>
-    </div>
-    <div class="filter-badge">BUILDER FILTER // NO VAGUE APPLICATIONS</div>
+
+<header class="site-header">
+  <div class="logo">
+    <span class="logo-bee"/span>
+    <span class="logo-text">Tailor<span>Bee.</span></span>
   </div>
+  <span class="header-tag">Builder Application · Kochi, India</span>
+</header>
 
-  <div class="hero-section">
-    <div class="eyebrow">Let’s build first. Titles later.</div>
-    <h1>TailorBee —<br>Builder Application</h1>
-    <div class="filter-sub">
-      This is <strong>not a job application</strong>. This is a filter.<br>
-      Ops understood. Market ready. Looking for technical builder who moves fast.
-    </div>
-    <div class="divider-marker"></div>
-  </div>
-
-  <div class="form-card">
-    <form id="cofounderForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-      <!-- Formspree anti-spam & subject -->
-      <input type="hidden" name="_subject" value="TailorBee — Co-Founder Builder Application" />
-      <input type="text" name="_gotcha" style="display:none" />
-
-      <!-- SECTION 1: Identity -->
-      <div class="fade-item" data-delay="0">
-        <div class="section-title"><span class="num">01</span> THE BUILDER</div>
-        <div class="field-row">
-          <div class="field-group">
-            <label>Full Name <span class="required-star">*</span></label>
-            <input type="text" name="full_name" id="fullName" placeholder="e.g., Arjun Nair" required>
-            <div class="error-msg" id="error-fullName">Full name is required.</div>
-          </div>
-          <div class="field-group">
-            <label>Age <span class="required-star">*</span></label>
-            <input type="number" name="age" id="age" placeholder="21–45" min="16" max="65" required>
-            <div class="error-msg" id="error-age">Enter a valid age (16–65).</div>
-          </div>
-        </div>
-        <div class="field-group">
-          <label>Current Status <span class="required-star">*</span></label>
-          <select name="current_status" id="statusSelect" required>
-            <option value="" disabled selected>— Select what fits —</option>
-            <option value="Student / Full-time academic">Student / Full-time academic</option>
-            <option value="Working full-time (tech role)">Working full-time (tech role)</option>
-            <option value="Freelancing / Contract">Freelancing / Contract</option>
-            <option value="Building my own startup">Building my own startup</option>
-            <option value="Between roles / exploring">Between roles / exploring</option>
-            <option value="Other (explain in commitments)">Other (explain in commitments)</option>
-          </select>
-          <div class="error-msg" id="error-status">Please select your current status.</div>
-        </div>
-      </div>
-
-      <div class="section-divider"></div>
-
-      <!-- SECTION 2: Digital footprint + proof -->
-      <div class="fade-item" data-delay="0.05">
-        <div class="section-title"><span class="num">02</span> PROOF OF CRAFT</div>
-        <div class="field-row">
-          <div class="field-group">
-            <label>GitHub Profile <span class="required-star">*</span></label>
-            <input type="url" name="github_url" id="github" placeholder="https://github.com/username" required>
-            <div class="error-msg" id="error-github">Valid GitHub URL required.</div>
-          </div>
-          <div class="field-group">
-            <label>LinkedIn Profile <span class="required-star">*</span></label>
-            <input type="url" name="linkedin_url" id="linkedin" placeholder="https://linkedin.com/in/username" required>
-            <div class="error-msg" id="error-linkedin">Valid LinkedIn URL required.</div>
-          </div>
-        </div>
-        <div class="field-group">
-          <label>Projects — what have you actually built? <span class="required-star">*</span></label>
-          <span class="hint-text">Share links, repos, or deployed projects. Tell us what you personally did (not your team).</span>
-          <textarea name="projects_built" id="projects" rows="4" placeholder="Example: Built a last-mile delivery dashboard (React + Node) — handled real-time tracking & payments. Link: https://..." required></textarea>
-          <div class="error-msg" id="error-projects">Describe what you've built, include links or specifics.</div>
-        </div>
-      </div>
-
-      <div class="section-divider"></div>
-
-      <!-- SECTION 3: Bandwidth & reality -->
-      <div class="fade-item" data-delay="0.1">
-        <div class="section-title"><span class="num">03</span> BANDWIDTH & REALITY</div>
-        <div class="field-group">
-          <label>Current & Future Commitments <span class="required-star">*</span></label>
-          <span class="hint-text">Full transparency. Exams, current job, side gigs — we want to know your real availability.</span>
-          <textarea name="commitments" id="commitments" rows="4" placeholder="I'm currently working 30h/week, plus a university capstone until May. After that, full commitment possible." required></textarea>
-          <div class="error-msg" id="error-commitments">Tell us about your current commitments.</div>
-        </div>
-      </div>
-
-      <div class="section-divider"></div>
-
-      <!-- SECTION 4: Why TailorBee -->
-      <div class="fade-item" data-delay="0.15">
-        <div class="section-title"><span class="num">04</span> WHY THIS VENTURE</div>
-        <div class="field-group">
-          <label>Why do you want to build something like TailorBee? <span class="required-star">*</span></label>
-          <span class="hint-text">No generic “I love startups”. We want real conviction, market insight, or personal drive.</span>
-          <textarea name="why_tailorbee" id="whyText" rows="5" placeholder="Because I've seen local tailors struggle with operations, and I believe tech can streamline pickup/delivery workflows. I want to own the full-stack execution." required></textarea>
-          <div class="error-msg" id="error-why">This field is required — be specific.</div>
-        </div>
-      </div>
-
-      <div class="submit-area fade-item" data-delay="0.2">
-        <div class="submit-note">
-          🐝 No screening calls, no gatekeeping. Founders read each response. If your intent is serious, we move fast.
-        </div>
-        <button type="submit" id="submitBtn">
-          <span>Submit — Builders Only</span>
-          <span>⚡</span>
-        </button>
-      </div>
-    </form>
-  </div>
-  <footer>
-    TailorBee · Kochi, India · Building the future of garment care · No fluff, only builders.
-  </footer>
+<div class="hero">
+  <div class="hero-eyebrow">Let's build first. Titles later.</div>
+  <h1>BUILDER<span class="script">Application.</span></h1>
+  <p class="hero-sub">
+    This is <strong>not a job application.</strong> This is a filter.<br><br>
+    We have the ops figured out. We understand the market. Now we need someone who can build fast and think clearly. If that's you — keep scrolling.
+  </p>
 </div>
 
-<!-- Success modal -->
-<div id="successModal" class="success-overlay">
-  <div class="success-card">
-    <div class="success-icon">🐝</div>
-    <h2>Received.</h2>
-    <p>“If this is serious, we’ll reach out. Otherwise, keep building.”</p>
-    <small>— Tejas & Team TailorBee</small>
-  </div>
+<div class="form-wrap">
+  <form id="bForm" action="https://formspree.io/f/mjgpgbpb" method="POST" novalidate>
+
+    <input type="hidden" name="_subject" value="New TailorBee Builder Application 🐝" />
+    <input type="text" name="_gotcha" style="display:none" tabindex="-1" />
+
+    <!-- 01 -->
+    <div class="form-section" id="s1">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <span class="section-title">WHO ARE YOU</span>
+        <div class="section-rule"></div>
+      </div>
+
+      <div class="two-col">
+        <div class="field">
+          <label class="field-label">Full Name <span class="req">*</span></label>
+          <input type="text" name="Full Name" placeholder="Your name" required />
+          <span class="err-msg">Required.</span>
+        </div>
+        <div class="field">
+          <label class="field-label">Age <span class="req">*</span></label>
+          <input type="number" name="Age" placeholder="e.g. 21" min="16" max="45" required />
+          <span class="err-msg">Enter a valid age.</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Current Status <span class="req">*</span></label>
+        <select name="Current Status" required>
+          <option value="" disabled selected>What are you doing right now?</option>
+          <option>Student</option>
+          <option>Working full-time</option>
+          <option>Freelancing</option>
+          <option>Building something of my own</option>
+          <option>Between things</option>
+          <option>Other</option>
+        </select>
+        <span class="err-msg">Please select an option.</span>
+      </div>
+    </div>
+
+    <hr class="div" />
+
+    <!-- 02 -->
+    <div class="form-section" id="s2">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <span class="section-title">YOUR WORK</span>
+        <div class="section-rule"></div>
+      </div>
+
+      <div class="two-col">
+        <div class="field">
+          <label class="field-label">GitHub <span class="req">*</span></label>
+          <input type="url" name="GitHub" placeholder="https://github.com/you" required />
+          <span class="err-msg">Enter a valid URL.</span>
+        </div>
+        <div class="field">
+          <label class="field-label">LinkedIn <span class="req">*</span></label>
+          <input type="url" name="LinkedIn" placeholder="https://linkedin.com/in/you" required />
+          <span class="err-msg">Enter a valid URL.</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">What have you built? <span class="req">*</span></label>
+        <span class="field-hint">Links, repos, anything real. Tell us what you actually did — not your team.</span>
+        <textarea name="Projects Built" placeholder="I built X. It does Y. Here's the link..." required></textarea>
+        <span class="err-msg">Tell us what you've built.</span>
+      </div>
+    </div>
+
+    <hr class="div" />
+
+    <!-- 03 -->
+    <div class="form-section" id="s3">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <span class="section-title">YOUR BANDWIDTH</span>
+        <div class="section-rule"></div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Current & upcoming commitments <span class="req">*</span></label>
+        <span class="field-hint">Be honest. We'd rather know now than later.</span>
+        <textarea name="Commitments" placeholder="Exams in March, part-time job, another side project running..." required></textarea>
+        <span class="err-msg">Required.</span>
+      </div>
+    </div>
+
+    <hr class="div" />
+
+    <!-- 04 -->
+    <div class="form-section" id="s4">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <span class="section-title">WHY THIS</span>
+        <div class="section-rule"></div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Why do you want to build something like this? <span class="req">*</span></label>
+        <span class="field-hint">Not "I'm passionate about startups." Something real.</span>
+        <textarea name="Why TailorBee" placeholder="Because..." style="min-height:160px" required></textarea>
+        <span class="err-msg">Required.</span>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-block" id="submitBlock">
+      <p class="submit-note">No HR. No screening rounds. Tejas reads every single one of these himself. If it's real, you'll hear back.</p>
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <span id="btnText">Submit — Builders Only</span>
+        <span>🐝</span>
+      </button>
+    </div>
+
+  </form>
+</div>
+
+<footer class="site-footer">
+  <p>TailorBee · <span>Kochi, Kerala</span> · India</p>
+  <p>#KochiStartups &nbsp;#TechKochi &nbsp;#TailorBee</p>
+</footer>
+
+<div class="success-screen" id="successScreen">
+  <div class="s-bee">🐝</div>
+  <h2>RECEIVED.<span class="script">For real.</span></h2>
+  <p>"If this is serious, we'll reach out. Otherwise, keep building."</p>
 </div>
 
 <script>
-  (function() {
-    // Intersection Observer for subtle fade-up animation
-    const fadeElements = document.querySelectorAll('.fade-item');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.form-section, .submit-block').forEach(el => obs.observe(el));
+
+  // Validation
+  function validate(field) {
+    const msg = field.parentElement.querySelector('.err-msg');
+    let ok = !!field.value.trim();
+
+    if (ok && field.type === 'url') {
+      try { new URL(field.value); } catch { ok = false; }
+    }
+    if (ok && field.type === 'number') {
+      const v = parseInt(field.value);
+      if (isNaN(v) || v < 16 || v > 45) ok = false;
+    }
+
+    field.classList.toggle('err', !ok);
+    if (msg) msg.classList.toggle('show', !ok);
+    return ok;
+  }
+
+  document.querySelectorAll('[required]').forEach(f => {
+    f.addEventListener('blur', () => validate(f));
+    f.addEventListener('input', () => { if (f.classList.contains('err')) validate(f); });
+  });
+
+  // Submit
+  document.getElementById('bForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const fields = this.querySelectorAll('[required]');
+    let ok = true;
+    fields.forEach(f => { if (!validate(f)) ok = false; });
+    if (!ok) return;
+
+    const btn = document.getElementById('submitBtn');
+    const txt = document.getElementById('btnText');
+    btn.disabled = true;
+    txt.textContent = 'Sending...';
+
+    try {
+      const res = await fetch(this.action, {
+        method: 'POST',
+        body: new FormData(this),
+        headers: { Accept: 'application/json' }
       });
-    }, { threshold: 0.1, rootMargin: "0px 0px -20px 0px" });
-    fadeElements.forEach(el => observer.observe(el));
 
-    // ---------- VALIDATION HELPERS ----------
-    const form = document.getElementById('cofounderForm');
-    const fullName = document.getElementById('fullName');
-    const ageInput = document.getElementById('age');
-    const statusSelect = document.getElementById('statusSelect');
-    const github = document.getElementById('github');
-    const linkedin = document.getElementById('linkedin');
-    const projects = document.getElementById('projects');
-    const commitments = document.getElementById('commitments');
-    const whyText = document.getElementById('whyText');
-
-    // Error message spans
-    const errorFull = document.getElementById('error-fullName');
-    const errorAge = document.getElementById('error-age');
-    const errorStatus = document.getElementById('error-status');
-    const errorGithub = document.getElementById('error-github');
-    const errorLinkedin = document.getElementById('error-linkedin');
-    const errorProjects = document.getElementById('error-projects');
-    const errorCommitments = document.getElementById('error-commitments');
-    const errorWhy = document.getElementById('error-why');
-
-    function isValidUrl(str) {
-      if (!str.trim()) return false;
-      try {
-        new URL(str);
-        return true;
-      } catch {
-        return false;
-      }
-    }
-
-    function validateFullName() {
-      const val = fullName.value.trim();
-      const ok = val.length >= 2;
-      toggleError(fullName, errorFull, !ok);
-      return ok;
-    }
-
-    function validateAge() {
-      const val = ageInput.value.trim();
-      if (!val) {
-        toggleError(ageInput, errorAge, true);
-        return false;
-      }
-      const num = Number(val);
-      const ok = !isNaN(num) && Number.isInteger(num) && num >= 16 && num <= 65;
-      toggleError(ageInput, errorAge, !ok);
-      return ok;
-    }
-
-    function validateStatus() {
-      const val = statusSelect.value;
-      const ok = val !== null && val !== "";
-      toggleError(statusSelect, errorStatus, !ok);
-      return ok;
-    }
-
-    function validateGithub() {
-      const val = github.value.trim();
-      const ok = val !== "" && isValidUrl(val);
-      toggleError(github, errorGithub, !ok);
-      return ok;
-    }
-
-    function validateLinkedin() {
-      const val = linkedin.value.trim();
-      const ok = val !== "" && isValidUrl(val);
-      toggleError(linkedin, errorLinkedin, !ok);
-      return ok;
-    }
-
-    function validateProjects() {
-      const val = projects.value.trim();
-      const ok = val.length >= 15;
-      toggleError(projects, errorProjects, !ok);
-      return ok;
-    }
-
-    function validateCommitments() {
-      const val = commitments.value.trim();
-      const ok = val.length >= 10;
-      toggleError(commitments, errorCommitments, !ok);
-      return ok;
-    }
-
-    function validateWhy() {
-      const val = whyText.value.trim();
-      const ok = val.length >= 20;
-      toggleError(whyText, errorWhy, !ok);
-      return ok;
-    }
-
-    function toggleError(inputEl, errorEl, isError) {
-      if (isError) {
-        inputEl.classList.add('error');
-        errorEl.classList.add('show');
+      if (res.ok) {
+        document.getElementById('successScreen').classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        inputEl.classList.remove('error');
-        errorEl.classList.remove('show');
+        btn.disabled = false;
+        txt.textContent = 'Submit — Builders Only';
+        alert('Something went wrong. Please try again.');
       }
+    } catch {
+      btn.disabled = false;
+      txt.textContent = 'Submit — Builders Only';
+      alert('Connection error. Please try again.');
     }
-
-    // attach real-time validation
-    fullName.addEventListener('input', validateFullName);
-    ageInput.addEventListener('input', validateAge);
-    statusSelect.addEventListener('change', validateStatus);
-    github.addEventListener('input', validateGithub);
-    linkedin.addEventListener('input', validateLinkedin);
-    projects.addEventListener('input', validateProjects);
-    commitments.addEventListener('input', validateCommitments);
-    whyText.addEventListener('input', validateWhy);
-
-    // disable submit until valid (optional but recommended: enable/disable logic)
-    const submitBtn = document.getElementById('submitBtn');
-    function isFormValid() {
-      return validateFullName() &&
-             validateAge() &&
-             validateStatus() &&
-             validateGithub() &&
-             validateLinkedin() &&
-             validateProjects() &&
-             validateCommitments() &&
-             validateWhy();
-    }
-
-    function updateSubmitButton() {
-      if (isFormValid()) {
-        submitBtn.disabled = false;
-      } else {
-        submitBtn.disabled = true;
-      }
-    }
-
-    // Add event listeners to all required fields to toggle button state
-    const allRequired = [fullName, ageInput, statusSelect, github, linkedin, projects, commitments, whyText];
-    allRequired.forEach(field => {
-      field.addEventListener('input', updateSubmitButton);
-      if (field.tagName === 'SELECT') field.addEventListener('change', updateSubmitButton);
-    });
-    // initial button state
-    updateSubmitButton();
-
-    // FORM SUBMISSION with Formspree AJAX (preserve validation, no page redirect)
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      // final cross-check
-      const valid = validateFullName() & validateAge() & validateStatus() & validateGithub() & validateLinkedin() & validateProjects() & validateCommitments() & validateWhy();
-      if (!valid) {
-        updateSubmitButton();
-        return;
-      }
-
-      // disable button during submission
-      submitBtn.disabled = true;
-      const originalText = submitBtn.innerHTML;
-      submitBtn.innerHTML = '<span>SENDING ...</span><span>🐝</span>';
-      
-      const formData = new FormData(form);
-      // Override action with real Formspree endpoint — REPLACE WITH YOUR ACTUAL ID when deploying
-      // For demo we keep the placeholder but instruction says to plug later. user will replace YOUR_FORM_ID.
-      // To make it functional, we read current action. if it still contains placeholder, we show friendly error?
-      let targetUrl = form.action;
-      if (targetUrl.includes('YOUR_FORM_ID')) {
-        // developer note: in production, replace with real formspree endpoint.
-        console.warn('Formspree ID placeholder — replace with actual endpoint before deploy');
-        // fallback simulation: show success anyway? we will simulate to avoid UX break but preserve design.
-        // but we should respect actual functionality: give error but guide user.
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
-        alert('⚠️ Formspree endpoint not configured. Replace action="https://formspree.io/f/mjgpgbpb" with your real Formspree ID.');
-        return;
-      }
-
-      try {
-        const response = await fetch(targetUrl, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-        if (response.ok) {
-          // Show success overlay
-          const modal = document.getElementById('successModal');
-          modal.classList.add('active');
-          // reset form if needed
-          form.reset();
-          updateSubmitButton();
-          // scroll to top, hide modal after click?
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-          // allow closing modal on click outside? optional: add click close
-          modal.addEventListener('click', function closeModal(e) {
-            if (e.target === modal) {
-              modal.classList.remove('active');
-              modal.removeEventListener('click', closeModal);
-            }
-          });
-        } else {
-          throw new Error('Formspree error');
-        }
-      } catch (err) {
-        alert('Submission failed. Please double-check your connection or try again later.');
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
-      } finally {
-        // only reset button if not success? but success we keep disabled just to avoid double, but fine.
-        if (document.getElementById('successModal').classList.contains('active')) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalText;
-        } else {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalText;
-          updateSubmitButton();
-        }
-      }
-    });
-  })();
+  });
 </script>
 </body>
 </html>
